@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styles from '../styles/Home.module.css';  // Import CSS module
 
 export default function Home() {
   const [tempEmail, setTempEmail] = useState('');
@@ -11,7 +12,6 @@ export default function Home() {
       const data = await res.json();
 
       if (res.ok) {
-        // Menyimpan email yang diterima dari API
         setTempEmail(data.email);
       } else {
         alert('Failed to generate email: ' + data.message);
@@ -23,16 +23,20 @@ export default function Home() {
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+    <div className={styles.container}>
       <h1>Temporary Email Generator</h1>
-      <button onClick={generateEmail} style={{ padding: '10px 20px', fontSize: '16px' }} disabled={loading}>
+      <button
+        onClick={generateEmail}
+        className={styles.button}
+        disabled={loading}
+      >
         {loading ? 'Generating...' : 'Generate Email'}
       </button>
       {tempEmail && (
-        <p style={{ marginTop: '20px', fontSize: '18px' }}>
-          Your Temporary Email: <strong>{tempEmail}</strong>
+        <p className={styles.emailText}>
+          Your Temporary Email: <span className={styles.email}>{tempEmail}</span>
         </p>
       )}
     </div>
   );
-  }
+        }
